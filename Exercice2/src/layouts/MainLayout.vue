@@ -18,18 +18,28 @@
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+      <q-list> </q-list>
     </q-drawer>
 
     <q-page-container>
+      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+        <div class="row" filled>
+          <q-icon name="format_size" style="color: #ccc; font-size: 2em" />
+          <q-input
+            v-model="text"
+            label="Tapez votre code nomenclature"
+            name="codeNom"
+            style="width: 30%"
+          />
+
+          <q-input
+            v-model="text"
+            label="Decrivez votre RTC"
+            name="rtc"
+            class="col offset-1"
+          />
+        </div>
+      </q-form>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -87,10 +97,6 @@ const linksList = [
 export default defineComponent({
   name: "MainLayout",
 
-  components: {
-    EssentialLink,
-  },
-
   setup() {
     const leftDrawerOpen = ref(false);
 
@@ -103,4 +109,14 @@ export default defineComponent({
     };
   },
 });
+
+// document.querySelector("#codeNom").addEventListener("q-input", function () {
+//   if (this.value.length > 0) {
+//     let url =
+//       "https://api-dev.customsbridge.fr/get_ebti?limit=100&language=fr&filter_on_code=${this.value}";
+//     fetch(url).then((response) =>
+//       response.json().then((data) => console.log(data))
+//     );
+//   }
+// });
 </script>
